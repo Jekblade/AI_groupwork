@@ -39,7 +39,7 @@ def load_all_csvs(data_dir=None):
     combined.sort_index(inplace=True)
 
     # --- Resample to 5-minute bins ---
-    combined_5min = combined.resample('30T').mean()  # 5T = 5 minutes (30T = 30 minutes) CHANGE if needed
+    combined_5min = combined.resample('1T').mean()  # 5T = 5 minutes (30T = 30 minutes) CHANGE if needed
 
     # Keep only data starting from the first actual timestamp
     combined_5min = combined_5min[combined_5min.index >= combined.index.min()]
@@ -54,7 +54,7 @@ if __name__ == '__main__':
     combined_5min_df = load_all_csvs()
 
     # Export to CSV
-    output_path = os.path.join(os.getcwd(), 'combined_resampled_30min.csv') # CHANGE NAME AS WELL
+    output_path = os.path.join(os.getcwd(), 'combined_resampled_1min.csv') # CHANGE NAME AS WELL
     combined_5min_df.to_csv(output_path, index=False)
 
     print(f"✅ 5-minute resampled CSV exported to: {output_path}")
